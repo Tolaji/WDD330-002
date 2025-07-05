@@ -1,8 +1,10 @@
 
+Team Trello Invite: https://trello.com/invite/b/681cb270c9d9e1512d31ff6f/ATTIb687461786546ae08d9fe9c8020ef8451DB39C3A/sleep-outside-team-10
+
 Team Trello Board: https://trello.com/b/8iQHXwQ5/sleep-outside-team-01
 
-Netlify url: https://wdd330-sleepoutside-team10.netlify.app/
+Netlify URL: https://wdd330-sleepoutside-team10.netlify.app/
 
 Team Members:
-Adetokunbo Olutola Osibo
-Kieft Raphter Joly
+- Adetokunbo Olutola Osibo
+- Kieft Raphter Joly
