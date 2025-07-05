@@ -16,3 +16,17 @@ ensure or local branch is up-to-date with the remote 'main' branch by performing
  & git reset --hard origin/main' to make local branch identical to the remote 'main' branch before we do 
  anything else so as to make sure we get changes any of us teammates have made recently. Also
 lets ensure PR are reviewed always.
+
+
+Development and Deployment Process:
+1. Choose a Trello card, assign yourself to it, and move to "Doing".
+2. Pull any changes from your team's project.
+3. Make a branch.
+4. Complete the work.
+5. Lint and format the code.
+6. Commit and push.
+7. Make a pull request for your new branch.
+8. Let your team know there is a pull request waiting.
+9. Another team member should review the pull request in GitHub and, if everything looks good, Merge the request.
+10. Delete the old branch.
+11. Move the Trello card to the "Done" list.
