@@ -6,3 +6,13 @@ Netlify url: https://wdd330-sleepoutside-team10.netlify.app/
 Team Members:
 Adetokunbo Olutola Osibo
 Kieft Raphter Joly
+
+
+
+
+Pull Request (PR) Notice:
+Whenever we sit to work on this project, before we proceed we should always
+ensure or local branch is up-to-date with the remote 'main' branch by performing a 'git pull' or 'git fetch origin
+ & git reset --hard origin/main' to make local branch identical to the remote 'main' branch before we do 
+ anything else so as to make sure we get changes any of us teammates have made recently. Also
+lets ensure PR are reviewed always.
