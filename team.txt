@@ -6,3 +6,4 @@ Netlify url: https://wdd330-sleepoutside-team10.netlify.app/
 Team Members:
 Adetokunbo Olutola Osibo
 Kieft Raphter Joly
+Ricardo Ramos Olivares 
