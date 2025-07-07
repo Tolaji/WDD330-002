@@ -15,8 +15,10 @@ Pull Request (PR) Notice:
 Whenever we sit to work on this project, before we proceed we should always
 ensure or local branch is up-to-date with the remote 'main' branch by performing a 'git pull' or 'git fetch origin
  & git reset --hard origin/main' to make local branch identical to the remote 'main' branch before we do 
- anything else so as to make sure we get changes any of us teammates have made recently. Also
+anything else so as to make sure we get changes any of us teammates have made recently. Also
 lets ensure PR are reviewed always.
+Each member of the team should run the format and lint command before they commit after making any changes throughout the course.
+
 
 
 Development and Deployment Process:
