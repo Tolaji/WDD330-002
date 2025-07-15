@@ -28,3 +28,26 @@ export function getParam(param) {
   return urlParams.get(param);
 }
 
+export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false) {
+  if (!parentElement) throw new Error("No parent element provided to renderListWithTemplate.");
+
+  if (clear) {
+    parentElement.innerHTML = "";
+  }
+
+  const htmlStrings = list.map(templateFn);
+  const combinedHtml = htmlStrings.join("");
+  parentElement.insertAdjacentHTML(position, combinedHtml);
+}
+
+export function updateCartCount() {
+  const cartItems = getLocalStorage("so-cart") || [];
+  const cartCount = cartItems.length;
+  const cartCountElement = document.getElementById("cart-count");
+  if (cartCountElement) {
+    cartCountElement.textContent = cartCount;
+    cartCountElement.style.display = cartCount > 0 ? "inline-block" : "none";
+  }
+}
+
+

@@ -1,9 +1,12 @@
 import { getParam } from './utils.mjs';
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 import ProductData from './ProductData.mjs';
+import { updateCartCount } from "./utils.mjs";  
+
 
 const dataSource = new ProductData('tents');
 const productId = getParam('product');
+
 
 console.log('Loaded product ID from URL:', productId);
 
@@ -41,6 +44,7 @@ export default class ProductDetails {
     console.log("After:", cartItems);
     /* eslint-enable no-console */
     setLocalStorage("so-cart", cartItems);
+    updateCartCount();
   }
 
   renderProductDetails() {
