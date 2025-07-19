@@ -27,7 +27,6 @@ export default class ProductList {
   }
 
   renderList(list, clear = false) {
-  // Clear the element if clear is true
   if (clear) {
     this.listElement.innerHTML = '';
   }
