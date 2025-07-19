@@ -1,6 +1,6 @@
 import ProductData from "./ProductData.mjs";
-import ProductList from "./ProductList.mjs";
-import { updateCartCount, getParam } from "./utils.mjs";
+import ProductList from "./CategoryList.mjs";
+import { updateCartCount, loadHeaderFooter, getParam  } from "./utils.mjs";
 
 const category = getParam("product");
 const dataSource = new ProductData(category);
