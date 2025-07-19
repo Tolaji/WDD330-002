@@ -241,6 +241,131 @@ button {
   grid-column: 3;
 }
 
+/* Cart quantity controls */
+.cart-card__quantity-controls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.cart-card__quantity-controls button {
+  padding: 0.4rem 0.8rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.cart-card__quantity-controls button:hover {
+  background-color: #555;
+}
+
+/* Delete button */
+.delete-btn {
+  margin-top: 0.5rem;
+  padding: 0.4rem 1rem;
+  background-color: #c0392b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #e74c3c;
+}
+
+/* Optional: Style for cart badge */
+.count-badge {
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+}
+
+/* Updated Cart Card Styling with Visual Demarcation */
+.cart-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border: 1px solid var(--light-grey);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  background-color: #fdfdfd;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  gap: 0.75rem;
+}
+
+.cart-card__image img {
+  width: 100%;
+  max-width: 200px;
+  border-radius: 8px;
+  margin: 0 auto;
+}
+
+.cart-card h2 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: 0.5rem 0 0.2rem 0;
+}
+
+.cart-card__color,
+.cart-card__price {
+  font-size: 0.95rem;
+  color: #555;
+  margin: 0;
+}
+
+.cart-card__quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+}
+
+.cart-card__quantity-controls button {
+  padding: 0.3rem 0.8rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  background-color: var(--secondary-color);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.cart-card__quantity-controls button:hover {
+  background-color: var(--tertiary-color);
+}
+
+.delete-btn {
+  margin-top: 0.75rem;
+  padding: 0.4rem 1rem;
+  background-color: #c0392b;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #e74c3c;
+}
+
+.cart-card:not(:last-child) {
+  border-bottom: 3px dashed #ddd;
+}
+
+
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
