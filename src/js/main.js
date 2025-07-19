@@ -1,6 +1,6 @@
 import ProductData from "./ProductData.mjs";
 import ProductList from "./ProductList.mjs";
-import { updateCartCount, getParam } from "./utils.mjs";
+import { updateCartCount, getParam, getParam } from "./utils.mjs";
 import Alert from "./alert.js";
 
 // locates the root index.html file and renders the alert there
