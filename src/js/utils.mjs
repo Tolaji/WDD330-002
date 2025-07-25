@@ -50,7 +50,6 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
 }
 
 
-
 export function updateCartCount() {
   const cartItems = getLocalStorage("so-cart") || [];
   const totalCount = cartItems.reduce((sum, item) => sum + (Number(item.Quantity) || 1), 0);
@@ -62,23 +61,36 @@ export function updateCartCount() {
   }
 }
 
-export function loadHeaderFooter() {
-  const header = fetch("/partials/header.html")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("main-header").innerHTML = data;
-    });
 
-  const footer = fetch("/partials/footer.html")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("main-footer").innerHTML = data;
-    });
 
-  // After both header and footer load, update cart count
-  Promise.all([header, footer]).then(() => {
-    updateCartCount();
-  });
+// Renders one template into a parent element and optionally calls a callback
+export function renderWithTemplate(template, parentElement, data, callback) {
+  const fragment = document.createRange().createContextualFragment(template);
+  parentElement.replaceChildren(fragment);
+
+  if (callback) {
+    callback(data);
+  }
 }
 
+// Loads HTML content from a given file path
+export async function loadTemplate(path) {
+  const response = await fetch(path);
+  if (!response.ok) {
+    throw new Error(`Failed to load template from ${path}`);
+  }
+  return await response.text();
+}
+
+// Loads header and footer templates into the DOM and updates cart count
+export async function loadHeaderFooter() {
+  const headerElement = document.getElementById("main-header");
+  const footerElement = document.getElementById("main-footer");
+
+  const header = await loadTemplate("/partials/header.html");
+  const footer = await loadTemplate("/partials/footer.html");
+
+  renderWithTemplate(header, headerElement, null, updateCartCount);
+  renderWithTemplate(footer, footerElement);
+}
 

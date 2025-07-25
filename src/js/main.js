@@ -4,10 +4,6 @@ import { updateCartCount } from "./utils.mjs";
 import Alert from "./alert.js";
 
 
-
-
-
-
 //load partials dynamically
 import { loadHeaderFooter } from "./utils.mjs"; // Assuming you make this function
 

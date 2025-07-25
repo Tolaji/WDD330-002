@@ -55,42 +55,29 @@
       <h2>My Cart</h2>
 
       <ul class="product-list">
-        <!-- <li class="cart-card divider">
-            <a href="product_pages/marmot-ajax-3.html" class="cart-card__image">
-              <img
-                src="images/tents/marmot-ajax-tent-3-person-3-season-in-pale-pumpkin-terracotta~p~880rr_01~320.jpg"
-                alt="Marmot Ajax tent"
-              />
-            </a>
-            <a href="product_pages/marmot-ajax-3.html">
-              <h2 class="card__name">Marmot Ajax Tent - 3-Person, 3-Season</h2>
-            </a>
-            <p class="cart-card__color">Pale Pumpkin/Terracotta</p>
-            <p class="cart-card__quantity">qty: 1</p>
-            <p class="cart-card__price">$199.99</p>
-          </li>
-          <li class="cart-card divider">
-            <a href="product_pages/marmot-ajax-3.html" class="cart-card__image">
-              <img
-                src="images/tents/the-north-face-talus-tent-4-person-3-season-in-golden-oak-saffron-yellow~p~985rf_01~320.jpg"
-                alt="Talus Tent - 4-Person, 3-Season"
-              />
-            </a>
-            <a href="product_pages/marmot-ajax-3.html">
-              <h2 class="card__name">
-                The North Face Talus Tent - 4-Person, 3-Season
-              </h2></a
-            >
-            <p class="cart-card__color">Golden Oak/Saffron Yellow</p>
-            <p class="cart-card__quantity">qty: 1</p>
-            <p class="cart-card__price">$199.99</p>
-          </li> -->
       </ul>
-
-      <div class="cart-sum hide">
-        <p class="cart-total">Total:</p>
-      </div>
     </section>
+
+    <!-- Update the cart-sum div to show all totals and add checkout button -->
+    <div class="cart-sum hide">
+      <div class="summary-line">
+        <span class="label">Subtotal:</span>
+        <span class="amount" id="cart-subtotal">$0.00</span>
+      </div>
+      <div class="summary-line">
+        <span class="label">Tax:</span>
+        <span class="amount" id="cart-tax">$0.00</span>
+      </div>
+      <div class="summary-line">
+        <span class="label">Shipping:</span>
+        <span class="amount" id="cart-shipping">$0.00</span>
+      </div>
+      <div class="summary-line total">
+        <span class="label">Total:</span>
+        <span class="amount" id="cart-total">$0.00</span>
+      </div>
+      <a href="../checkout/index.html" class="checkout-button">Checkout</a>
+    </div>
   </main>
 
   <footer id="main-footer" style="text-align: center;">&copy;2025 ⛺ SleepOutside ⛺ WDD 330 ⛺ BYU-Idaho for BYU-Pathway
