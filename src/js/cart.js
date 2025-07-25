@@ -1,20 +1,16 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, updateCartCount } from "./utils.mjs";  // ✅ Add updateCartCount
 
 function renderCartContents() {
   let cartItems = getLocalStorage("so-cart");
 
-  // Ensure we have a valid array
   if (!Array.isArray(cartItems)) {
     console.warn("⚠️ cartItems is not an array. Resetting to empty array.");
     cartItems = [];
   }
 
-  console.log("✅ Cart items found:", cartItems);
-
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
 
-  // Show total if items exist
   const cartFooter = document.querySelector(".cart-sum");
   if (cartItems.length > 0) {
     const total = cartItems.reduce((sum, item) => {
@@ -29,6 +25,8 @@ function renderCartContents() {
   } else {
     cartFooter.classList.add("hide");
   }
+
+  updateCartCount(); // ✅ This updates the <span id="cart-count">
 }
 
 function cartItemTemplate(item) {
@@ -50,5 +48,7 @@ function cartItemTemplate(item) {
     <p class="cart-card__price">$${(price * quantity).toFixed(2)}</p>
   </li>`;
 }
+
+
 
 renderCartContents();

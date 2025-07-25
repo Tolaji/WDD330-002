@@ -49,12 +49,36 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
   parentElement.insertAdjacentHTML(position, combinedHtml);
 }
 
+
+
 export function updateCartCount() {
   const cartItems = getLocalStorage("so-cart") || [];
-  const cartCount = cartItems.length;
+  const totalCount = cartItems.reduce((sum, item) => sum + (Number(item.Quantity) || 1), 0);
+
   const cartCountElement = document.getElementById("cart-count");
   if (cartCountElement) {
-    cartCountElement.textContent = cartCount;
-    cartCountElement.style.display = cartCount > 0 ? "inline-block" : "none";
+    cartCountElement.textContent = totalCount;
+    cartCountElement.style.display = totalCount > 0 ? "inline-block" : "none";
   }
 }
+
+export function loadHeaderFooter() {
+  const header = fetch("/partials/header.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("main-header").innerHTML = data;
+    });
+
+  const footer = fetch("/partials/footer.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("main-footer").innerHTML = data;
+    });
+
+  // After both header and footer load, update cart count
+  Promise.all([header, footer]).then(() => {
+    updateCartCount();
+  });
+}
+
+
