@@ -9,6 +9,12 @@ if (window.location.pathname === "/index.html") {
   alert.render(document.querySelector("main"));
 }
 
+// locates the root index.html file and renders the alert there
+if (window.location.pathname === "/index.html") {
+  const alert = new Alert("/json/alerts.json");
+  alert.render(document.querySelector("main"));
+}
+
 
 const category = getParam("product");
 const dataSource = new ProductData(category);
