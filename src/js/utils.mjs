@@ -65,3 +65,27 @@ export function updateCartCount() {
     cartCountElement.style.display = cartCount > 0 ? "inline-block" : "none";
   }
 }
+export function alertMessage(message, scroll = true, duration = 3000) {
+  const container = document.querySelector("main");
+  const alertBox = document.createElement("div");
+
+  alertBox.className = "alert";
+  alertBox.innerHTML = `<p>${message}</p><span>X</span>`;
+
+  alertBox.onclick = (e) => {
+    if (e.target.tagName === "SPAN") {
+      container.removeChild(alertBox);
+    }
+  };
+
+  container.prepend(alertBox);
+
+  if (scroll) {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+}
+
+export function removeAllAlerts() {
+  const container = document.querySelector("main");
+  document.querySelectorAll(".alert").forEach((el) => el.remove());
+}

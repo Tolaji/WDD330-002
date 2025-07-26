@@ -43,17 +43,32 @@ export default class ProductList {
   //   return template;
   // }
 
-  productCardTemplate(product) {
-    return `
-      <li class="product-card">
-        <a href="product_pages/index.html?product=${product.Id}">
-          <img src="${product.Images.PrimaryMedium}" alt="${product.NameWithoutBrand}" />
-          <h2 class="card__brand">${product.Brand.Name}</h2>
-          <h3 class="card__name">${product.NameWithoutBrand}</h3>
-          <p class="product-card__price">$${product.FinalPrice}</p>
-        </a>
-      </li>
+productCardTemplate(product) {
+  const finalPrice = product.FinalPrice;
+  const retailPrice = product.SuggestedRetailPrice;
+  let discountHTML = "";
+
+  if (retailPrice > finalPrice) {
+    const discountPercent = Math.round(((retailPrice - finalPrice) / retailPrice) * 100);
+    discountHTML = `
+    <p class="product-card__retail-price"><s>$${retailPrice}</s></p>
+      <p class="product-card__discount">-${discountPercent}% OFF</p>
     `;
   }
+
+  return `
+    <li class="product-card">
+      <a href="product_pages/index.html?product=${product.Id}">
+        <img src="${product.Images.PrimaryMedium}" alt="${product.NameWithoutBrand}" />
+        <h2 class="card__brand">${product.Brand.Name}</h2>
+        <h3 class="card__name">${product.NameWithoutBrand}</h3>
+        ${discountHTML}
+        <p class="product-card__price">$${finalPrice}</p>
+        
+      </a>
+    </li>
+  `;
+}
+
 
 }
