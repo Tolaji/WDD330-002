@@ -1,5 +1,30 @@
 import { renderListWithTemplate } from "./utils.mjs";
-
+const listMenu = [
+    {
+        name: "Tents",
+        route: "tents",
+        image: "../category-tents.svg",
+        alt: "Tents Category"
+    },
+    {
+        name: "Backpacks",
+        route: "backpacks",
+        image: "../category-backpacks.svg",
+        alt: "Backpacks Category"
+    },
+    {
+        name: "Sleeping Bags",
+        route: "sleeping-bags",
+        image: "../category-sleepingbags.svg",
+        alt: "Sleeping Bags Category"
+    },
+    {
+        name: "Hammocks",
+        route: "hammocks",
+        image: "../category-hammocks.svg",
+        alt: "Hammocks Category"
+    }
+]
 export default class ProductList {
   constructor(category, dataSource, listElement) {
     this.category = category;
@@ -7,8 +32,9 @@ export default class ProductList {
     this.listElement = listElement;
   }
 
+  
   async init() {
-  const list = await this.dataSource.getData(this.category);
+  const list = listMenu;
   console.log("que estamos recibiendo", list);
     this.renderList(list);
   }
@@ -43,32 +69,15 @@ export default class ProductList {
   //   return template;
   // }
 
-productCardTemplate(product) {
-  const finalPrice = product.FinalPrice;
-  const retailPrice = product.SuggestedRetailPrice;
-  let discountHTML = "";
-
-  if (retailPrice > finalPrice) {
-    const discountPercent = Math.round(((retailPrice - finalPrice) / retailPrice) * 100);
-    discountHTML = `
-    <p class="product-card__retail-price"><s>$${retailPrice}</s></p>
-      <p class="product-card__discount">-${discountPercent}% OFF</p>
+  productCardTemplate(product) {
+    return `
+      <li class="product-card">
+        <a href="product_pages/index.html?product=${product.route}">
+          <img src="${product.image}" alt="${product.alt}" />
+          <Center><h3 class="card__name">${product.name}</h3></Center>
+        </a>
+      </li>
     `;
   }
-
-  return `
-    <li class="product-card">
-      <a href="product_pages/index.html?product=${product.Id}">
-        <img src="${product.Images.PrimaryMedium}" alt="${product.NameWithoutBrand}" />
-        <h2 class="card__brand">${product.Brand.Name}</h2>
-        <h3 class="card__name">${product.NameWithoutBrand}</h3>
-        ${discountHTML}
-        <p class="product-card__price">$${finalPrice}</p>
-        
-      </a>
-    </li>
-  `;
-}
-
 
 }
