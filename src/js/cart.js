@@ -1,5 +1,8 @@
+// cart.mjs or cart.js
+
 import { getLocalStorage, setLocalStorage, updateCartCount } from "./utils.mjs";
 
+// Main render function
 function renderCartContents() {
   let cartItems = getLocalStorage("so-cart");
 
@@ -13,9 +16,10 @@ function renderCartContents() {
 
   attachQuantityListeners(); // Listen for qty changes
   renderCartTotal(); // Update totals
-  updateCartCount();
+  updateCartCount(); // Update cart badge
 }
 
+// Renders a single cart item
 function cartItemTemplate(item, index) {
   const image = item?.Image ?? "images/default.jpg";
   const name = item?.Name ?? "Unknown Item";
@@ -27,38 +31,85 @@ function cartItemTemplate(item, index) {
     <a href="#" class="cart-card__image">
       <img src="${image}" alt="${name}" />
     </a>
-    <a href="#">
-      <h2 class="card__name">${name}</h2>
-    </a>
-    <p class="cart-card__color">${color}</p>
-    <label for="quantity-${index}">Qty:</label>
-    <input type="number" id="quantity-${index}" class="cart-card__quantity-input" min="1" value="${quantity}" data-index="${index}" />
-    <p class="cart-card__price">$${(price * quantity).toFixed(2)}</p>
+    <div class="cart-card__details">
+      <a href="#">
+        <h2 class="card__name">${name}</h2>
+      </a>
+      <p class="cart-card__color">Color: ${color}</p>
+      <p class="cart-card__price">Price: $${(price * quantity).toFixed(2)}</p>
+
+     
+       <div class="quantity-control">
+        <button class="qty-btn decrease" data-index="${index}">−</button>
+        <input type="number" id="quantity-${index}" class="cart-card__quantity-input" min="1" value="${quantity}" data-index="${index}" />
+        <button class="qty-btn increase" data-index="${index}">+</button>
+      </div>
+      
+       <button class="remove-btn" data-index="${index}">Remove</button>
+    </div>
   </li>`;
 }
 
+
+// Attaches listeners to quantity input and +/- buttons
 function attachQuantityListeners() {
   const quantityInputs = document.querySelectorAll(".cart-card__quantity-input");
+  const increaseButtons = document.querySelectorAll(".qty-btn.increase");
+  const decreaseButtons = document.querySelectorAll(".qty-btn.decrease");
+  const removeButtons = document.querySelectorAll(".remove-btn");
+
+  removeButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const index = btn.dataset.index;
+      let cartItems = getLocalStorage("so-cart");
+      cartItems.splice(index, 1); // Remove item at index
+      setLocalStorage("so-cart", cartItems);
+      renderCartContents();
+    });
+  });
+
 
   quantityInputs.forEach((input) => {
     input.addEventListener("change", (e) => {
-      const index = parseInt(e.target.dataset.index);
-      const newQty = parseInt(e.target.value);
+      updateQuantity(e.target.dataset.index, parseInt(e.target.value));
+    });
+  });
 
-      if (newQty < 1 || isNaN(newQty)) {
-        e.target.value = 1;
-        return;
-      }
-
+  increaseButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const index = btn.dataset.index;
       const cartItems = getLocalStorage("so-cart");
-      cartItems[index].Quantity = newQty;
-
+      cartItems[index].Quantity += 1;
       setLocalStorage("so-cart", cartItems);
-      renderCartContents(); // Re-render the cart with updated values
+      renderCartContents();
+    });
+  });
+
+  decreaseButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const index = btn.dataset.index;
+      const cartItems = getLocalStorage("so-cart");
+      if (cartItems[index].Quantity > 1) {
+        cartItems[index].Quantity -= 1;
+        setLocalStorage("so-cart", cartItems);
+        renderCartContents();
+      }
     });
   });
 }
 
+// Updates quantity from input field
+function updateQuantity(index, newQty) {
+  const validatedQty = newQty < 1 || isNaN(newQty) ? 1 : newQty;
+
+  const cartItems = getLocalStorage("so-cart");
+  cartItems[index].Quantity = validatedQty;
+
+  setLocalStorage("so-cart", cartItems);
+  renderCartContents();
+}
+
+// Calculate subtotal, tax, shipping, and total
 function renderCartTotal() {
   const cartItems = getLocalStorage("so-cart") || [];
   let itemCount = 0;
@@ -87,5 +138,5 @@ function renderCartTotal() {
   }
 }
 
-// Initialize everything
+// Initialize
 renderCartContents();
