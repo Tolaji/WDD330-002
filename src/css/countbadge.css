@@ -51,3 +51,16 @@
 .hide {
   display: none;
 }
+
+.cart-card__remove {
+  position: absolute;
+  top: 25px;
+  right: 0px;
+  color: red;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.cart-card {
+  position: relative;
+}
