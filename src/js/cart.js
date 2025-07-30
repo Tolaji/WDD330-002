@@ -1,4 +1,4 @@
-import { getLocalStorage, updateCartCount } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, updateCartCount } from "./utils.mjs";
 
 function renderCartContents() {
   let cartItems = getLocalStorage("so-cart");
@@ -8,46 +8,15 @@ function renderCartContents() {
     cartItems = [];
   }
 
-  const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+  const htmlItems = cartItems.map((item, index) => cartItemTemplate(item, index));
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
 
-  const cartFooter = document.querySelector(".cart-sum");
-  if (cartItems.length > 0) {
-    // Calculate subtotal
-    const subtotal = cartItems.reduce((sum, item) => {
-      const price = parseFloat(item.FinalPrice) || 0;
-      const quantity = item.Quantity ?? 1;
-      return sum + price * quantity;
-    }, 0);
-
-    // Calculate item count for shipping
-    const itemCount = cartItems.reduce((count, item) =>
-      count + (item.Quantity ?? 1), 0);
-
-    // Calculate tax (6%)
-    const tax = subtotal * 0.06;
-
-    // Calculate shipping ($10 first item, $2 each additional)
-    const shipping = 10 + (itemCount - 1) * 2;
-
-    // Calculate total
-    const total = subtotal + tax + shipping;
-
-    // Update all summary lines
-    document.querySelector("#cart-subtotal").textContent = `$${subtotal.toFixed(2)}`;
-    document.querySelector("#cart-tax").textContent = `$${tax.toFixed(2)}`;
-    document.querySelector("#cart-shipping").textContent = `$${shipping.toFixed(2)}`;
-    document.querySelector("#cart-total").textContent = `$${total.toFixed(2)}`;
-
-    cartFooter.classList.remove("hide");
-  } else {
-    cartFooter.classList.add("hide");
-  }
-
+  attachQuantityListeners(); // Listen for qty changes
+  renderCartTotal(); // Update totals
   updateCartCount();
 }
 
-function cartItemTemplate(item) {
+function cartItemTemplate(item, index) {
   const image = item?.Image ?? "images/default.jpg";
   const name = item?.Name ?? "Unknown Item";
   const price = parseFloat(item?.FinalPrice) || 0;
@@ -62,42 +31,61 @@ function cartItemTemplate(item) {
       <h2 class="card__name">${name}</h2>
     </a>
     <p class="cart-card__color">${color}</p>
-    <p class="cart-card__quantity">qty: ${quantity}</p>
+    <label for="quantity-${index}">Qty:</label>
+    <input type="number" id="quantity-${index}" class="cart-card__quantity-input" min="1" value="${quantity}" data-index="${index}" />
     <p class="cart-card__price">$${(price * quantity).toFixed(2)}</p>
   </li>`;
 }
 
-// Add this function to your cart.js
+function attachQuantityListeners() {
+  const quantityInputs = document.querySelectorAll(".cart-card__quantity-input");
+
+  quantityInputs.forEach((input) => {
+    input.addEventListener("change", (e) => {
+      const index = parseInt(e.target.dataset.index);
+      const newQty = parseInt(e.target.value);
+
+      if (newQty < 1 || isNaN(newQty)) {
+        e.target.value = 1;
+        return;
+      }
+
+      const cartItems = getLocalStorage("so-cart");
+      cartItems[index].Quantity = newQty;
+
+      setLocalStorage("so-cart", cartItems);
+      renderCartContents(); // Re-render the cart with updated values
+    });
+  });
+}
+
 function renderCartTotal() {
   const cartItems = getLocalStorage("so-cart") || [];
   let itemCount = 0;
   let subtotal = 0;
 
   cartItems.forEach(item => {
-    itemCount += item.quantity;
-    subtotal += item.FinalPrice * item.quantity;
+    const quantity = item.Quantity ?? 1;
+    itemCount += quantity;
+    subtotal += (item.FinalPrice || 0) * quantity;
   });
 
-  // Calculate tax (6%)
   const tax = subtotal * 0.06;
-
-  // Calculate shipping ($10 first item, $2 each additional)
-  const shipping = 10 + (itemCount - 1) * 2;
-
-  // Calculate total
+  const shipping = itemCount > 0 ? 10 + (itemCount - 1) * 2 : 0;
   const total = subtotal + tax + shipping;
 
-  // Update the display
-  document.querySelector("#cart-subtotal").innerHTML = `$${subtotal.toFixed(2)}`;
-  document.querySelector("#cart-tax").innerHTML = `$${tax.toFixed(2)}`;
-  document.querySelector("#cart-shipping").innerHTML = `$${shipping.toFixed(2)}`;
-  document.querySelector("#cart-total").innerHTML = `$${total.toFixed(2)}`;
+  document.querySelector("#cart-subtotal").textContent = `$${subtotal.toFixed(2)}`;
+  document.querySelector("#cart-tax").textContent = `$${tax.toFixed(2)}`;
+  document.querySelector("#cart-shipping").textContent = `$${shipping.toFixed(2)}`;
+  document.querySelector("#cart-total").textContent = `$${total.toFixed(2)}`;
 
-  // Show the summary
-  document.querySelector(".cart-sum").classList.remove("hide");
+  const cartFooter = document.querySelector(".cart-sum");
+  if (cartItems.length > 0) {
+    cartFooter.classList.remove("hide");
+  } else {
+    cartFooter.classList.add("hide");
+  }
 }
 
-// Call this function after rendering cart items
-renderCartTotal();
-
+// Initialize everything
 renderCartContents();
