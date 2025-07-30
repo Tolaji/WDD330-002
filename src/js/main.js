@@ -1,18 +1,26 @@
 import ProductData from "./ProductData.mjs";
 import ProductList from "./ProductList.mjs";
-import { loadHeaderFooter, updateCartCount } from "./utils.mjs";
+import { loadHeaderFooter, getParam, updateCartCount } from "./utils.mjs";
 import Alert from "./alert.js";
 
-// locates the root index.html file and renders the alert there
+// Get category from URL or default to "tents"
+const category = getParam("category") || "tents";
+
+// Locates the root index.html file and renders the alert there
 if (window.location.pathname === "/index.html") {
   const alert = new Alert("/json/alerts.json");
   alert.render(document.querySelector("main"));
 }
 
-const category = "tents";
-const dataSource = new ProductData(category);
+const dataSource = new ProductData();
 const listElement = document.querySelector(".product-list");
 const cartCount = document.getElementById("cart-count");
+
+// Update page title with category - using more specific selector
+const titleElement = document.querySelector(".products h2");
+if (titleElement) {
+  titleElement.textContent = `Top Products: ${category.charAt(0).toUpperCase() + category.slice(1)}`;
+}
 
 // Initialize the product list with the category, data source, and list element
 const productList = new ProductList(category, dataSource, listElement);

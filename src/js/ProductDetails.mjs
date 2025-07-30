@@ -73,8 +73,11 @@ function productDetailsTemplate(product) {
     document.querySelector(".product-detail h2").textContent = product.Brand.Name;
     document.querySelector(".product-detail h2").textContent = product.NameWithoutBrand;
   
-    const productImage = document.querySelector(".product-detail img.divider");
-    productImage.src = product.Image;
+    // const productImage = document.querySelector(".product-detail img.divider");
+    // productImage.src = product.Images.PrimaryMedium; 
+    // productImage.alt = product.NameWithoutBrand;
+    const productImage = document.querySelector(".product-detail img");
+    productImage.src = product.Images.PrimaryLarge;
     productImage.alt = product.NameWithoutBrand;
   
     document.querySelector(".product-card__price").textContent = `$${product.FinalPrice}`;
