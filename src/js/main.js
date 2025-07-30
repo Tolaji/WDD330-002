@@ -1,6 +1,6 @@
 import ProductData from "./ProductData.mjs";
 import ProductList from "./ProductList.mjs";
-import { updateCartCount } from "./utils.mjs";
+import { loadHeaderFooter, updateCartCount } from "./utils.mjs";
 import Alert from "./alert.js";
 
 // locates the root index.html file and renders the alert there
@@ -20,3 +20,6 @@ productList.init();
 
 // Update the cart count on page load
 updateCartCount(cartCount);
+
+// Load the header and footer
+loadHeaderFooter();
