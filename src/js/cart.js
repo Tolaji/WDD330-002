@@ -8,7 +8,7 @@ import {
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart") || [];
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-  document.querySelector(".product-list").innerHTML = htmlItems.join("");
+  document.querySelector("#cart-list").innerHTML = htmlItems.join("");
 
   // Attach listeners to all remove buttons
   document.querySelectorAll(".cart-card__remove").forEach((button) => {
@@ -34,7 +34,7 @@ function cartItemTemplate(item) {
   return `
   <li class="cart-card divider" data-id="${item.Id}">
     <a href="#" class="cart-card__image">
-      <img src="${item.Image}" alt="${item.Name}" />
+      <img src="${item.Images.PrimarySmall}" alt="${item.Name}"
     </a>
     <a href="#">
       <h2 class="card__name">${item.Name}</h2>

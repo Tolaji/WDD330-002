@@ -169,6 +169,18 @@ button {
   justify-content: center;
 }
 
+#cart-products {
+  margin-top: 0rem;
+  padding: 10rem;
+}
+
+#cart-list {
+  display: flex;
+  flex-flow: column;
+  list-style-type: none;
+  justify-content: center;
+}
+
 .product-list a {
   text-decoration: none;
   color: var(--dark-grey);
@@ -309,6 +321,18 @@ button {
   .product-categories svg {
     width: 60px;
     height: 60px;
+  }
+
+  #cart-products {
+    margin-top: 2rem;
+    padding: 1rem;
+  }
+
+  #cart-list {
+    display: flex;
+    flex-flow: row wrap;
+    list-style-type: none;
+    justify-content: center;
   }
 
   footer {
