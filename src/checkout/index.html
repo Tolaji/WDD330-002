@@ -8,7 +8,10 @@
 
     <title>Sleep Outside | Checkout</title>
 
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/countbadge.css" />
+    <link rel="stylesheet" href="/css/checkout.css" />
+    <script src="../js/checkout.js" type="module"></script>
   </head>
 
   <body>
@@ -17,6 +20,49 @@
     <main class="divider">
       <section class="products">
         <h2>Review & Place your Order</h2>
+      </section>
+
+      <section class="checkout-form">
+        <form id="checkout-form">
+          <h3>Customer Info</h3>
+          <input type="text" name="fname" placeholder="First Name" required />
+          <input type="text" name="lname" placeholder="Last Name" required />
+
+          <h3>Address</h3>
+          <input
+            type="text"
+            name="street"
+            placeholder="Street Address"
+            required
+          />
+          <input type="text" name="city" placeholder="City" required />
+          <input type="text" name="state" placeholder="State" required />
+          <input type="text" name="zip" id="zip"  placeholder="Zip Code" required />
+
+          <h3>Payment</h3>
+          <input
+            type="text"
+            name="cardNumber"
+            placeholder="Card Number"
+            required
+          />
+          <input
+            type="text"
+            name="expiration"
+            placeholder="Expiration Date"
+            required
+          />
+          <input type="text" name="code" placeholder="Security Code" required />
+        </form>
+
+        <div class="order-summary">
+          <h3>Order Summary</h3>
+          <p>Subtotal: $<span id="subtotal">0.00</span></p>
+          <p>Tax: $<span id="tax">0.00</span></p>
+          <p>Shipping: $<span id="shipping">0.00</span></p>
+          <p>Total: $<span id="orderTotal">0.00</span></p>
+        </div>
+        <button type="submit">Place Order</button>
       </section>
     </main>
 

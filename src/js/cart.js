@@ -15,6 +15,11 @@ function renderCartContents() {
     button.addEventListener("click", removeItemFromCart);
   });
 
+  // Link to checkout page
+  document.getElementById("checkout").addEventListener("click", function () {
+    window.location.href = "../checkout/index.html";
+  });
+
   // Show total if items exist
   const cartFooter = document.querySelector(".cart-sum");
   if (cartItems.length > 0) {
