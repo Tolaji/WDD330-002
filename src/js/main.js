@@ -1,4 +1,4 @@
-import ProductData from "./ProductData.mjs";
+import ExternalServices from "./ExternalServices.mjs";
 import ProductList from "./ProductList.mjs";
 import { loadHeaderFooter, getParam, updateCartCount } from "./utils.mjs";
 import Alert from "./alert.js";
@@ -12,7 +12,7 @@ if (window.location.pathname === "/index.html") {
   alert.render(document.querySelector("main"));
 }
 
-const dataSource = new ProductData();
+const dataSource = new ExternalServices();
 const listElement = document.querySelector(".product-list");
 const cartCount = document.getElementById("cart-count");
 
