@@ -1,5 +1,5 @@
 import { getParam } from './utils.mjs';
-import { loadHeaderFooter, getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { loadHeaderFooter, getLocalStorage, setLocalStorage, alertMessage } from "./utils.mjs";
 import ExternalServices from './ExternalServices.mjs';
 import { updateCartCount } from "./utils.mjs";  
 
@@ -62,6 +62,8 @@ export default class ProductDetails {
 
     setLocalStorage("so-cart", cartItems);
     updateCartCount();
+    alertMessage(`${this.product.NameWithoutBrand} added to cart!`);
+
   }
 
   renderProductDetails() {

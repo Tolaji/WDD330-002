@@ -298,6 +298,23 @@ button {
   grid-column: 3;
 }
 
+.alert {
+  background-color: #f44336;
+  color: white;
+  padding: 1rem;
+  position: relative;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+}
+
+.alert .close {
+  position: absolute;
+  right: 1rem;
+  top: 0.5rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+
 @media screen and (max-width: 500px) {
   /* body {
     max-width: 1080px;
